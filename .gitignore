@@ -1,0 +1,20 @@
+# Build directories
+build/
+_deps/
+CMakeFiles/
+*.o
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+
+# CMake generated
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+
+# Executables
+denseplas_simple
+*.exe
