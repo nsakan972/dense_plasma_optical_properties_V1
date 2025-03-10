@@ -29,9 +29,10 @@ void IFParser::printNodeInfo(const pugi::xml_node& node, int level)
     std::string indent(level * 2, ' ');
 
     // Ensure we have enough levels in our container
-    while (xml_levels.size() < level) {
+    // We store level 0 at index 0, so we need (level + 1) slots
+    while (xml_levels.size() <= level) {
         LevelNodes newLevel;
-        newLevel.level = xml_levels.size() + 1;
+        newLevel.level = xml_levels.size();
         xml_levels.push_back(newLevel);
     }
 
@@ -65,8 +66,8 @@ void IFParser::printNodeInfo(const pugi::xml_node& node, int level)
         }
     }
 
-    // Add this node to its level
-    xml_levels[level-1].nodes.push_back(xmlNode);
+    // Add this node to its level (level 0 stored at index 0)
+    xml_levels[level].nodes.push_back(xmlNode);
     
     // Recursively print child nodes
     for (pugi::xml_node child = node.first_child(); 
