@@ -13,7 +13,11 @@ enum RV_Global {
 };
 
 // input file globals
-// Structure to hold XML attribute data
+// Forward declarations
+struct XMLNode;
+struct XMLAttribute;
+
+// Structure for XML attribute data
 struct XMLAttribute {
     std::string name;
     std::string value;
@@ -45,13 +49,6 @@ namespace DBG {
     extern int debug_level;
 }
 
-
-// Structure for nodes at each level
-struct LevelNodes {
-    std::vector<XMLNode> nodes;  // All nodes at this level
-    int level = 0;              // Level number (root = 1)
-};
-
 // Structure for XML node and its attributes
 struct XMLNode {
     std::string name;
@@ -64,14 +61,14 @@ struct XMLNode {
     std::vector<XMLNode> children;  // Child nodes (next level)
 };
 
+// Structure for nodes at each level
+struct LevelNodes {
+    std::vector<XMLNode> nodes;  // All nodes at this level
+    int level = 0;              // Level number (root = 1)
+};
+
 // Vector to store nodes by level
 extern std::vector<LevelNodes> xml_levels;
-
-// Structure for XML attribute
-struct XMLAttribute {
-    std::string name;
-    std::string value;
-};
 
 // Root node for the entire XML document
 extern XMLNode xml_root;
