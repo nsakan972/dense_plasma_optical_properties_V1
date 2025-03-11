@@ -20,7 +20,7 @@ public:
     IFParser(std::string filename);
     ~IFParser();
 
-    void printNodeInfo(const pugi::xml_node& node, int level = 0);
+    XMLNode* printNodeInfo(const pugi::xml_node& node, XMLNode* parent = nullptr, int level = 0);
 
 private:
 

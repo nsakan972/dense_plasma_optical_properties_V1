@@ -6,3 +6,6 @@ namespace DBG {
 
 // Definition of the global XML levels container
 std::vector<LevelNodes> xml_levels;
+
+// Definition of the root XML node
+XMLNode xml_root;
