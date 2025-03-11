@@ -1,5 +1,5 @@
-#ifndef __IF_PARSER_HPP__
-#define __IF_PARSER_HPP__
+#ifndef IF_PARSER_HPP_
+#define IF_PARSER_HPP_
 
 #include <iostream>
 #include <fstream>
@@ -20,11 +20,13 @@ public:
     explicit IFParser(const std::string& filename);
     ~IFParser();
 
-    void printNodeInfo(const pugi::xml_node& node, int level = 0);
-    void populateXMLnode(const pugi::xml_node& node, int level = 0);
+    static void printNodeInfo(const pugi::xml_node& node, XMLNode* parent = nullptr, int level = 0);
 
 private:
+    static void processAttributes(const pugi::xml_node& node, XMLNode& xmlNode, int level);
+    static void debugPrint(const std::string& message, int level);
+    void populateXMLnode(const pugi::xml_node& node, int level = 0);
 
 };
 
-#endif // __IF_PARSER_HPP__   
+#endif  // IF_PARSER_HPP_   
