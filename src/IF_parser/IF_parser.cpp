@@ -1,4 +1,5 @@
 #include "IF_parser.hpp"
+#include <cstring>
 
 IFParser::IFParser(std::string filename)
 {
@@ -25,6 +26,11 @@ IFParser::~IFParser()
 
 void IFParser::printNodeInfo(const pugi::xml_node& node, int level)
 {
+    // Skip empty text nodes
+    if (node.type() == pugi::node_pcdata && strlen(node.value()) == 0) {
+        return;
+    }
+
     // Print indentation
     std::string indent(level * 2, ' ');
 
@@ -42,10 +48,21 @@ void IFParser::printNodeInfo(const pugi::xml_node& node, int level)
     xmlNode.path = std::string(node.path().data());  // Convert pugi::xpath_node to string
     xmlNode.value = node.child_value(); // Get text content if any
 
-    if(DBG::debug_level == 2) {
-        std::cout << "[" << level << "]: " << indent << "Node: " << xmlNode.name << std::endl;
-    } else if (DBG::debug_level == 1) {
-        std::cout << indent << "Node: " << xmlNode.name << std::endl;
+    // Only print and store element nodes or non-empty text nodes
+    if (node.type() == pugi::node_element || (node.type() == pugi::node_pcdata && strlen(node.value()) > 0)) {
+        if(DBG::debug_level == 2) {
+            std::cout << "[" << level << "]: " << indent << "Node: " << xmlNode.name;
+            if (node.type() == pugi::node_pcdata) {
+                std::cout << " (text: " << node.value() << ")";
+            }
+            std::cout << std::endl;
+        } else if (DBG::debug_level == 1) {
+            std::cout << indent << "Node: " << xmlNode.name;
+            if (node.type() == pugi::node_pcdata) {
+                std::cout << " (text: " << node.value() << ")";
+            }
+            std::cout << std::endl;
+        }
     }
     
     // Process all attributes of this node
