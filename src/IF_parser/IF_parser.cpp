@@ -1,7 +1,7 @@
 #include "IF_parser.hpp"
 #include <cstring>
 
-IFParser::IFParser(std::string filename)
+IFParser::IFParser(const std::string& filename)
 {
     // as first step, open the file
     pugi::xml_document doc;

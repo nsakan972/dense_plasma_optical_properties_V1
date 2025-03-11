@@ -17,10 +17,11 @@
 
 class IFParser {
 public:
-    IFParser(std::string filename);
+    explicit IFParser(const std::string& filename);
     ~IFParser();
 
-    XMLNode* printNodeInfo(const pugi::xml_node& node, XMLNode* parent = nullptr, int level = 0);
+    void printNodeInfo(const pugi::xml_node& node, int level = 0);
+    void populateXMLnode(const pugi::xml_node& node, int level = 0);
 
 private:
 
